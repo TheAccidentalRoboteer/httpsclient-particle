@@ -142,6 +142,8 @@ int httpsclientSetup(const char * host, const char * path) {
 static int32 httpWriteRequest(uint32 msg_length, const char * message) {
   unsigned char   *buf;
   int32	available, requested;
+Serial.print("SAN1>");
+Serial.println(msg_len);
 
   requested = strlen((char *)g_httpRequestHdr) + strlen(g_path) + 1 + msg_length + 10;
   if ((available = matrixSslGetWritebuf(ssl, &buf, requested)) < 0) {
@@ -381,9 +383,6 @@ int httpsClientConnection(unsigned char * requestContent, uint32 msg_len,
 	/* If we sent the Finished SSL message, initiate the HTTP req */
 	/* (This occurs on a resumption handshake) */
 	
-	Serial.print("SAN>");
-  	Serial.println(msg_len);
-
 	if (httpWriteRequest(msg_len, message) < 0) {
 	  goto L_CLOSE_ERR;
 	}
