@@ -142,7 +142,7 @@ int httpsclientSetup(const char * host, const char * path) {
 static int32 httpWriteRequest(uint32 msg_length, const char * message) {
   unsigned char   *buf;
   int32	available, requested;
-Serial.print("SAN1>");
+Serial.print("SAN msg_length>");
 Serial.println(msg_length);
 
   requested = strlen((char *)g_httpRequestHdr) + strlen(g_path) + 1 + msg_length + 10;
@@ -150,6 +150,16 @@ Serial.println(msg_length);
     return PS_MEM_FAIL;
   }
   requested = min(requested, available);
+  Serial.print("SAN REQUESTED>");
+  Serial.println(requested);
+  Serial.print("SAN g_httpRequestHdr>");
+  Serial.println((char *)g_httpRequestHdr);
+  Serial.print("SAN g_path>");
+  Serial.println(g_path);
+  Serial.print("SAN msg_length>");
+  Serial.println(msg_length);
+  Serial.print("SAN message>");
+  Serial.println(message);
   snprintf((char *)buf, requested, (char *)g_httpRequestHdr, g_path,
 	   msg_length, message);
   if (g_https_trace) _psTrace((char*)buf);
