@@ -321,7 +321,8 @@ int httpsClientConnection(unsigned char * requestContent, uint32 msg_len,
 			  const char * message) {
   int32 rc, len, transferred;
   g_httpRequestHdr = requestContent;
-
+  Serial.print("SAN>");
+  Serial.println(msg_len);
   memset(&options, 0x0, sizeof(sslSessOpts_t));
   options.versionFlag = sessionFlag;
   options.userPtr = keys;
