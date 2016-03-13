@@ -142,8 +142,6 @@ int httpsclientSetup(const char * host, const char * path) {
 static int32 httpWriteRequest(uint32 msg_length, const char * message) {
   unsigned char   *buf;
   int32	available, requested;
-Serial.print("SAN msg_length>");
-Serial.println(msg_length);
 
   requested = strlen((char *)g_httpRequestHdr) + strlen(g_path) + 1 + msg_length + 10;
   if ((available = matrixSslGetWritebuf(ssl, &buf, requested)) < 0) {
@@ -161,7 +159,7 @@ Serial.println(msg_length);
   Serial.print("SAN message>");
   Serial.println(message);
   snprintf((char *)buf, requested, (char *)g_httpRequestHdr, g_path,
-	   msg_length, message);
+	   (int)msg_length, message);
   if (g_https_trace) _psTrace((char*)buf);
   
   if (matrixSslEncodeWritebuf(ssl, strlen((char *)buf)) < 0) {
