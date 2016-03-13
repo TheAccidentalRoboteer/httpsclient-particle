@@ -143,7 +143,7 @@ static int32 httpWriteRequest(uint32 msg_length, const char * message) {
   unsigned char   *buf;
   int32	available, requested;
 Serial.print("SAN1>");
-Serial.println(msg_len);
+Serial.println(msg_length);
 
   requested = strlen((char *)g_httpRequestHdr) + strlen(g_path) + 1 + msg_length + 10;
   if ((available = matrixSslGetWritebuf(ssl, &buf, requested)) < 0) {
